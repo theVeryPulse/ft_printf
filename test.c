@@ -1,6 +1,8 @@
-#include "libft/libft.h"
+#include <stdio.h>
 
 int main(void)
 {
-	ft_printf("abcd%s", "a");
+	char a = 'a';
+	char *ptr = &a;
+	printf("%p\n", ptr);
 }

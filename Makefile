@@ -1,10 +1,22 @@
+# UNRESOLVED
+# How the test would be run? What should libftprintf.a contain?
+
+
 CC := cc
 CFLAGS := -Wall -Wextra -Werror
-CFILES := ft_printf.c
-OFILES := $(CFILES:.c=.o)
+LIBFT_DIR := ./libft
+BUILD_DIR := .
 NAME := libftprintf.a
 LIBFT := libft.a
+
+# Test main
 TEST := test.c
+
+# Source files of ftprintf
+CFILES := ft_printf.c
+OFILES := $(CFILES:.c=.o)
+
+# Source files of libft
 LIBFT_FILES = \
 ft_isalpha.c	ft_isdigit.c		ft_isalnum.c	ft_isascii.c	ft_isprint.c \
 ft_strlen.c		ft_memset.c			ft_bzero.c		ft_memcpy.c		ft_memmove.c \
@@ -18,25 +30,32 @@ ft_putnbr_fd.c \
 \
 ft_lstnew.c		ft_lstadd_front.c	ft_lstsize.c	ft_lstlast.c	ft_lstadd_back.c \
 ft_lstdelone.c	ft_lstclear.c		ft_lstiter.c	ft_lstmap.c \
-LIBFT_OBJ_FILES := $(patsubst $(LIBFT_DIR)/%.c, $(BUILD_DIR)/%.o, $(LIBFT_FILES))
+LIBFT_OBJ_FILES := $(patsubst $(LIBFT_DIR)/%.c, %.o, $(LIBFT_DIR)/$(LIBFT_FILES))
 
 
 all: $(NAME)
 
-# include libft in libftprint
+# Build libftprint.a
 $(NAME): $(OFILES)
-	ar rcs $@ $(OFILES) $(addprefix ./libft/, $(LIBFTFILES))
+	ar rcs $@ $(OFILES)
 
+# Build the object files required for libftprint.a
+$(OFILES): $(CFILES) $(LIBFT)
+	$(CC) $(CFLAGS) $(CFILES) -c
+
+# Build libft and copy it to current directory
 $(LIBFT):
-	$(MAKE) -C ./libft/ all
+	$(MAKE) -C $(LIBFT_DIR) all
+	cp $(LIBFT_DIR)/$(LIBFT) $(BUILD_DIR)/$(LIBFT)
 
 clean:
-	rm -f $(OFILES)
+	rm -f $(wildcard *.o)
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(wildcard *.a)
 
 re: fclean all
 
-test: all $(TEST)
-	$(CC) $(CFLAGS) $(TEST) -L. -lftprintf
+test: $(CFILES) $(LIBFT)
+	$(CC) $(CFLAGS) $(CFILES) -L. -lft -g
+	./a.out
