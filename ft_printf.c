@@ -6,7 +6,7 @@
 /*   By: Philip Li <LJHR.UK@outlook.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:19:09 by Philip Li         #+#    #+#             */
-/*   Updated: 2023/11/11 19:34:10 by Philip Li        ###   ########.fr       */
+/*   Updated: 2023/11/11 20:26:47 by Philip Li        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,12 @@
 #include <unistd.h>
 #include <stdarg.h> /* va_arg */
 #include <stdint.h> /* ft_print_s */
-/*
 void	ptr_hexa(void *p)
 {
-	;
+	uintptr_t	addr;
+
+	addr = p;
+	
 }
 
 int	ft_print_p(void *addr)
@@ -61,7 +63,7 @@ int	ft_print_p(void *addr)
 	}
 	i = 0;
 	write(1, hexstr, 16);
-}*/
+}
 
 int	ft_printf(const char *str, ...)
 {
@@ -72,7 +74,6 @@ int	ft_printf(const char *str, ...)
 
 	char c;
 	char *s;
-	//void *p;
 	//unsigned long long d;
 
 	va_start(args, str);
@@ -88,6 +89,7 @@ int	ft_printf(const char *str, ...)
 		}
 		else // cspdiuxX%
 		{
+			/* ft_printf_c */
 			if (str[i + 1] == 'c')
 			{
 				c = va_arg(args, int);
@@ -96,6 +98,7 @@ int	ft_printf(const char *str, ...)
 				i += 2;
 				/* 3 variables: i, sum, va_arg(args, int) */
 			}
+			/* ft_printf_s */
 			else if (str[i + 1] == 's')
 			{
 				s = va_arg(args, char *);
@@ -104,17 +107,16 @@ int	ft_printf(const char *str, ...)
 				i += 2;
 				/* 3 variables: i, sum, va_arg(args, char *) */
 			}
-
-
-			/*
 			else if (str[i + 1] == 'p')
 			{
-				p = va_arg(args, void *);
-				s = ptr_hexa(p);
+				void *ptr;
+				ptr = va_arg(args, void *);
+				s = ptr_hexa(ptr);
 				ft_putstr_fd(s, STDOUT_FILENO);
 				sum += ft_strlen(s);
 				i += 2;
 			}
+			/*
 			else if (str[i + 1] == 'd')
 			{
 				d = va_arg(args, long long);
