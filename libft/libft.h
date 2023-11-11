@@ -6,7 +6,7 @@
 /*   By: Philip Li <LJHR.UK@outlook.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 20:03:04 by juli              #+#    #+#             */
-/*   Updated: 2023/11/09 15:34:10 by Philip Li        ###   ########.fr       */
+/*   Updated: 2023/11/11 18:41:13 by Philip Li        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,5 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
-
-/* ft_printf */
-
-int		ft_printf(const char *, ...);
 
 #endif

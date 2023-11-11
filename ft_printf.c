@@ -6,7 +6,7 @@
 /*   By: Philip Li <LJHR.UK@outlook.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:19:09 by Philip Li         #+#    #+#             */
-/*   Updated: 2023/11/10 19:46:08 by Philip Li        ###   ########.fr       */
+/*   Updated: 2023/11/11 19:34:10 by Philip Li        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,27 +30,27 @@
 	└─ ft_printf_u.c
 	└─ ft_printf_x.c
 	└─ ft_printf_X.c
-	└─ ft_printf_ps.c
+	└─ ft_printf_percentsign.c
 */
 
-#include "libft/libft.h"
-#include "ftprintf.h"
+#include "libft.h"
+#include "libftprintf.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdarg.h> /* va_arg */
 #include <stdint.h> /* ft_print_s */
-
+/*
 void	ptr_hexa(void *p)
 {
-	
+	;
 }
 
-int	ft_print_s(void *addr)
+int	ft_print_p(void *addr)
 {
 	intptr_t	addr_int;
 	int			i;
 	char		hexstr[16];
-	char const	hexchars = "0123456789abcdef";
+	char const	*hexchars = "0123456789abcdef";
 
 	addr_int = (intptr_t)addr;
 	i = 0;
@@ -61,7 +61,7 @@ int	ft_print_s(void *addr)
 	}
 	i = 0;
 	write(1, hexstr, 16);
-}
+}*/
 
 int	ft_printf(const char *str, ...)
 {
@@ -106,6 +106,7 @@ int	ft_printf(const char *str, ...)
 			}
 
 
+			/*
 			else if (str[i + 1] == 'p')
 			{
 				p = va_arg(args, void *);
@@ -114,7 +115,6 @@ int	ft_printf(const char *str, ...)
 				sum += ft_strlen(s);
 				i += 2;
 			}
-			/*
 			else if (str[i + 1] == 'd')
 			{
 				d = va_arg(args, long long);
@@ -145,7 +145,7 @@ int	ft_printf(const char *str, ...)
 	va_end(args);
 	return (sum);
 }
-
+/*
 #include <stdio.h>
 #include <string.h>
 
@@ -155,4 +155,4 @@ int main(void)
 	int ft_len = ft_printf("abcd%c %s", 'A', "string");
 	write(STDOUT_FILENO, "\n", 1);
 	printf("\tTotal length should be (%d), is now (%d)\n", c_len, ft_len);
-}
+}*/
