@@ -6,7 +6,7 @@
 /*   By: Philip Li <LJHR.UK@outlook.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:19:09 by Philip Li         #+#    #+#             */
-/*   Updated: 2023/11/11 20:26:47 by Philip Li        ###   ########.fr       */
+/*   Updated: 2023/11/11 20:37:00 by Philip Li        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,10 @@ int	ft_printf(const char *str, ...)
 				ft_putchar_fd(c, STDOUT_FILENO);
 				sum++;
 				i += 2;
+				/* 
+				sum += ft_printf_c(va_arg(args, int));
+				i += 2; 
+				*/
 				/* 3 variables: i, sum, va_arg(args, int) */
 			}
 			/* ft_printf_s */
@@ -105,6 +109,10 @@ int	ft_printf(const char *str, ...)
 				ft_putstr_fd(s, STDOUT_FILENO);
 				sum += ft_strlen(s);
 				i += 2;
+				/*
+				sum += ft_printf_s(va_arg(args, char *));
+				i += 2;
+				*/
 				/* 3 variables: i, sum, va_arg(args, char *) */
 			}
 			else if (str[i + 1] == 'p')
