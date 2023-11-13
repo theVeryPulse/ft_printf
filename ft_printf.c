@@ -6,7 +6,7 @@
 /*   By: Philip Li <LJHR.UK@outlook.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:19:09 by Philip Li         #+#    #+#             */
-/*   Updated: 2023/11/11 20:37:00 by Philip Li        ###   ########.fr       */
+/*   Updated: 2023/11/13 19:41:50 by juli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,21 @@
 	└─ ft_printf_x.c
 	└─ ft_printf_X.c
 	└─ ft_printf_percentsign.c
+	└─ libft/
 */
 
-#include "libft.h"
+#include "libft/libft.h"
 #include "libftprintf.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdarg.h> /* va_arg */
 #include <stdint.h> /* ft_print_s */
-void	ptr_hexa(void *p)
-{
-	uintptr_t	addr;
 
-	addr = p;
-	
-}
+
+int	ft_printf_c(char c);
+
+int	ft_printf_s(char *s);
+
 
 int	ft_print_p(void *addr)
 {
@@ -90,38 +90,24 @@ int	ft_printf(const char *str, ...)
 		else // cspdiuxX%
 		{
 			/* ft_printf_c */
+			/* 3 variables: i, sum, va_arg(args, int) */
 			if (str[i + 1] == 'c')
 			{
-				c = va_arg(args, int);
-				ft_putchar_fd(c, STDOUT_FILENO);
-				sum++;
-				i += 2;
-				/* 
 				sum += ft_printf_c(va_arg(args, int));
-				i += 2; 
-				*/
-				/* 3 variables: i, sum, va_arg(args, int) */
+				i += 2;
 			}
 			/* ft_printf_s */
+			/* 3 variables: i, sum, va_arg(args, char *) */
 			else if (str[i + 1] == 's')
 			{
-				s = va_arg(args, char *);
-				ft_putstr_fd(s, STDOUT_FILENO);
-				sum += ft_strlen(s);
-				i += 2;
-				/*
 				sum += ft_printf_s(va_arg(args, char *));
 				i += 2;
-				*/
-				/* 3 variables: i, sum, va_arg(args, char *) */
 			}
+			/* ft_printf_p */
+			/*  */
 			else if (str[i + 1] == 'p')
 			{
-				void *ptr;
-				ptr = va_arg(args, void *);
-				s = ptr_hexa(ptr);
-				ft_putstr_fd(s, STDOUT_FILENO);
-				sum += ft_strlen(s);
+				sum += ft_print_p(va_arg(args, void *));
 				i += 2;
 			}
 			/*
@@ -155,6 +141,47 @@ int	ft_printf(const char *str, ...)
 	va_end(args);
 	return (sum);
 }
+
+/* Prints a character to terminal, return 1 as length of char */
+int	ft_printf_c(char c)
+{
+	write(STDOUT_FILENO, &c, 1);
+	return (1);
+}
+
+/* Prints a string to terminal, returns string length */
+int	ft_printf_s(char *s)
+{
+	size_t	len;
+
+	len = 0;
+	while (s[len])
+		len++;
+	write(STDOUT_FILENO, s, len);
+	return (len);
+}
+
+/* Prints the address of a pointer to terminal in hexadecimal.
+ * Returns the length of the printed string.
+ */
+int	ft_print_p(void *addr)
+{
+	intptr_t	addr_int;
+	int			i;
+	char		hexstr[16];
+	char const	*hexchars = "0123456789abcdef";
+
+	addr_int = (intptr_t)addr;
+	i = 0;
+	while (i <= 15)
+	{
+		hexstr[15 - i] = hexchars[addr_int >> (i * 4) & 0xf];
+		i++;
+	}
+	i = 0;
+	write(1, hexstr, 16);
+}
+
 /*
 #include <stdio.h>
 #include <string.h>

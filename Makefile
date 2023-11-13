@@ -4,7 +4,7 @@ CC = gcc
 CFLAGS := -Wall -Wextra -Werror
 
 LIBFT := libft/libft.a
-INC_DIRS := -Ilibft
+#INC_DIRS := -Ilibft
 
 NAME := libftprintf.a
 CFILES := ft_printf.c
@@ -22,6 +22,7 @@ $(LIBFT):
 
 # Build object files of all required source codes
 $(OFILES): $(CFILES)
+	#$(CC) $(CFLAGS) $(INC_DIRS) -c -o $@ $<
 	$(CC) $(CFLAGS) $(INC_DIRS) -c -o $@ $<
 
 clean:
