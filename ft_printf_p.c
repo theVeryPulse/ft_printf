@@ -6,7 +6,7 @@
 /*   By: juli <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 16:20:22 by juli              #+#    #+#             */
-/*   Updated: 2023/11/14 19:21:33 by juli             ###   ########.fr       */
+/*   Updated: 2023/11/14 22:17:30 by juli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,12 @@
 
 #include <unistd.h>
 #include <stdint.h>
+#include "libft/libft.h"
+#define HEX_BASE (16)
 
-int	ft_print_p(void *addr)
+void	str_rev(char *s);
+
+int	ft_printf_p(void *addr)
 {
 	intptr_t	addr_int;
 	int			i;
@@ -27,17 +31,20 @@ int	ft_print_p(void *addr)
 
 	addr_int = (intptr_t)addr;
 	i = 0;
-	while (addr_int / 10)
+	while (addr_int / HEX_BASE)
 	{
-		hexstr[i++] = hexchars[addr_int / 16];
+		hexstr[i++] = hexchars[addr_int % HEX_BASE];
+		addr_int /= HEX_BASE;
 	}
 	hexstr[i++] = hexchars[addr_int];
 	hexstr[i++] = 'x';
 	hexstr[i++] = '0';
 	hexstr[i] = '\0';
+	str_rev(hexstr);
 
 	i = 0;
 	write(STDOUT_FILENO, hexstr, 16);
+	return (ft_strlen(hexstr));
 }
 
 void	str_rev(char *s)
@@ -51,6 +58,20 @@ void	str_rev(char *s)
 	while (left < right)
 	{
 		swap = s[left];
-		
+		s[left] = s[right];
+		s[right] = swap;
+		left++;
+		right--;
 	}
 }
+/*
+#include <stdio.h>
+
+int main(void)
+{
+	char c = 'c';
+	ft_printf_p(&c);
+	write(STDOUT_FILENO, "\n", 1);
+	printf("%p", &c);
+}
+*/
