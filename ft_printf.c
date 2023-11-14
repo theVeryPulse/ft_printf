@@ -6,7 +6,7 @@
 /*   By: Philip Li <LJHR.UK@outlook.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:19:09 by Philip Li         #+#    #+#             */
-/*   Updated: 2023/11/13 19:41:50 by juli             ###   ########.fr       */
+/*   Updated: 2023/11/14 19:21:33 by juli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 	• %% Prints a percent sign.
 	
 	WD
-	└─ ft_printf_c.c
 	└─ ft_printf_c.c
 	└─ ft_printf_s.c
 	└─ ft_printf_p.c
@@ -39,42 +38,12 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdarg.h> /* va_arg */
-#include <stdint.h> /* ft_print_s */
-
-
-int	ft_printf_c(char c);
-
-int	ft_printf_s(char *s);
-
-
-int	ft_print_p(void *addr)
-{
-	intptr_t	addr_int;
-	int			i;
-	char		hexstr[16];
-	char const	*hexchars = "0123456789abcdef";
-
-	addr_int = (intptr_t)addr;
-	i = 0;
-	while (i <= 15)
-	{
-		hexstr[15 - i] = hexchars[addr_int >> (i * 4) & 0xf];
-		i++;
-	}
-	i = 0;
-	write(1, hexstr, 16);
-}
 
 int	ft_printf(const char *str, ...)
 {
-	//char	*strout;
 	size_t	i;
 	size_t	sum;
 	va_list	args;
-
-	char c;
-	char *s;
-	//unsigned long long d;
 
 	va_start(args, str);
 	i = 0;
@@ -83,8 +52,7 @@ int	ft_printf(const char *str, ...)
 	{
 		if (str[i] != '%' && str[i])
 		{
-			ft_putchar_fd(str[i], STDOUT_FILENO);
-			sum++;
+			sum += ft_printf_c(str[i]);
 			i++;
 		}
 		else // cspdiuxX%
@@ -105,12 +73,12 @@ int	ft_printf(const char *str, ...)
 			}
 			/* ft_printf_p */
 			/*  */
+			/*
 			else if (str[i + 1] == 'p')
 			{
 				sum += ft_print_p(va_arg(args, void *));
 				i += 2;
 			}
-			/*
 			else if (str[i + 1] == 'd')
 			{
 				d = va_arg(args, long long);
@@ -140,46 +108,6 @@ int	ft_printf(const char *str, ...)
 	}
 	va_end(args);
 	return (sum);
-}
-
-/* Prints a character to terminal, return 1 as length of char */
-int	ft_printf_c(char c)
-{
-	write(STDOUT_FILENO, &c, 1);
-	return (1);
-}
-
-/* Prints a string to terminal, returns string length */
-int	ft_printf_s(char *s)
-{
-	size_t	len;
-
-	len = 0;
-	while (s[len])
-		len++;
-	write(STDOUT_FILENO, s, len);
-	return (len);
-}
-
-/* Prints the address of a pointer to terminal in hexadecimal.
- * Returns the length of the printed string.
- */
-int	ft_print_p(void *addr)
-{
-	intptr_t	addr_int;
-	int			i;
-	char		hexstr[16];
-	char const	*hexchars = "0123456789abcdef";
-
-	addr_int = (intptr_t)addr;
-	i = 0;
-	while (i <= 15)
-	{
-		hexstr[15 - i] = hexchars[addr_int >> (i * 4) & 0xf];
-		i++;
-	}
-	i = 0;
-	write(1, hexstr, 16);
 }
 
 /*

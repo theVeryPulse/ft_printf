@@ -5,8 +5,10 @@
 
 int main(void)
 {
-	int c_len = printf("abcd%c %s", 'A', "string");
-	int ft_len = ft_printf("abcd%c %s", 'A', "string");
+	char c = 'c';
+	char *s = "string";
+	int c_len = printf("c(%c) s(%s)", c, s);
+	int ft_len = ft_printf("c(%c) s(%s)", c, s);
 	write(STDOUT_FILENO, "\n", 1);
-	printf("\tTotal length should be (%d), is now (%d)\n", c_len, ft_len);
+	printf("\nTotal length should be (%d), is now (%d)\n", c_len, ft_len);
 }

@@ -4,12 +4,13 @@ CC = gcc
 CFLAGS := -Wall -Wextra -Werror
 
 LIBFT := libft/libft.a
-#INC_DIRS := -Ilibft
 
 NAME := libftprintf.a
-CFILES := ft_printf.c
+CFILES := \
+ft_printf.c	ft_printf_c.c	ft_printf_s.c
 OFILES := $(CFILES:.c=.o)
 
+# Default target
 all: $(NAME)
 
 # Compile all codes from libft and libftprintf into libftprintf.a
@@ -22,12 +23,11 @@ $(LIBFT):
 
 # Build object files of all required source codes
 $(OFILES): $(CFILES)
-	#$(CC) $(CFLAGS) $(INC_DIRS) -c -o $@ $<
-	$(CC) $(CFLAGS) $(INC_DIRS) -c -o $@ $<
+	$(CC) -c $^  
 
 clean:
 	$(MAKE) -C libft clean
-	rm -f $(OFILES)
+	rm -f $(OFILES) $(CFILES:.c=.o)
 
 fclean: clean
 	$(MAKE) -C libft fclean

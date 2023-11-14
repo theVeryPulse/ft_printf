@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   deleteme.c                                         :+:      :+:    :+:   */
+/*   ft_printf_s.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Philip Li <LJHR.UK@outlook.com>            +#+  +:+       +#+        */
+/*   By: juli <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/11 20:27:25 by Philip Li         #+#    #+#             */
-/*   Updated: 2023/11/11 20:29:54 by Philip Li        ###   ########.fr       */
+/*   Created: 2023/11/14 16:12:12 by juli              #+#    #+#             */
+/*   Updated: 2023/11/14 17:06:14 by juli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+/* Prints a string to terminal, returns string length */
 
-int main(void)
+#include <unistd.h>
+#include <limits.h>
+
+int	ft_printf_s(char *s)
 {
-	char *str0 = "a";
-	char str1[] = "a";
-	printf("Pointer test: str0 (%p) str1 (%p)\n", str0, str1);
+	int	len;
+
+	len = 0;
+	while (s[len] && len <= INT_MAX)
+		len++;
+	write(STDOUT_FILENO, s, len);
+	return (len);
 }
