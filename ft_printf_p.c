@@ -6,7 +6,7 @@
 /*   By: juli <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 16:20:22 by juli              #+#    #+#             */
-/*   Updated: 2023/11/14 22:17:30 by juli             ###   ########.fr       */
+/*   Updated: 2023/11/15 19:30:31 by juli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include "libft/libft.h"
 #define HEX_BASE (16)
 
-void	str_rev(char *s);
+static void	str_rev(char *s);
 
 int	ft_printf_p(void *addr)
 {
@@ -41,13 +41,11 @@ int	ft_printf_p(void *addr)
 	hexstr[i++] = '0';
 	hexstr[i] = '\0';
 	str_rev(hexstr);
-
-	i = 0;
-	write(STDOUT_FILENO, hexstr, 16);
+	write(STDOUT_FILENO, hexstr, ft_strlen(hexstr));
 	return (ft_strlen(hexstr));
 }
 
-void	str_rev(char *s)
+static void	str_rev(char *s)
 {
 	size_t	left;
 	size_t	right;
@@ -64,14 +62,3 @@ void	str_rev(char *s)
 		right--;
 	}
 }
-/*
-#include <stdio.h>
-
-int main(void)
-{
-	char c = 'c';
-	ft_printf_p(&c);
-	write(STDOUT_FILENO, "\n", 1);
-	printf("%p", &c);
-}
-*/

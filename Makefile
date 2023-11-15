@@ -10,7 +10,9 @@ CFILES := \
 	ft_printf.c \
 	ft_printf_c.c \
 	ft_printf_s.c \
-	ft_printf_p.c
+	ft_printf_p.c \
+	ft_printf_d.c \
+	str_rev.c
 OFILES := $(CFILES:.c=.o)
 
 # Default target

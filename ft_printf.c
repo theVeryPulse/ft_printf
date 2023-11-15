@@ -6,7 +6,7 @@
 /*   By: Philip Li <LJHR.UK@outlook.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:19:09 by Philip Li         #+#    #+#             */
-/*   Updated: 2023/11/14 21:49:23 by juli             ###   ########.fr       */
+/*   Updated: 2023/11/15 19:50:10 by juli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,12 @@ int	ft_printf(const char *str, ...)
 		else // cspdiuxX%
 		{
 			/* ft_printf_c */
-			/* 3 variables: i, sum, va_arg(args, int) */
 			if (str[i + 1] == 'c')
 			{
 				sum += ft_printf_c(va_arg(args, int));
 				i += 2;
 			}
 			/* ft_printf_s */
-			/* 3 variables: i, sum, va_arg(args, char *) */
 			else if (str[i + 1] == 's')
 			{
 				sum += ft_printf_s(va_arg(args, char *));
@@ -77,11 +75,13 @@ int	ft_printf(const char *str, ...)
 				sum += ft_printf_p(va_arg(args, void *));
 				i += 2;
 			}
-			/*
+			/* ft_printf_d */
 			else if (str[i + 1] == 'd')
 			{
-				d = va_arg(args, long long);
+				sum += ft_printf_d(va_arg(args, int));
+				i += 2;
 			}
+			/*
 			else if (str[i + 1] == 'i')
 			{
 				;
@@ -98,11 +98,13 @@ int	ft_printf(const char *str, ...)
 			{
 				;
 			}
+			*/
 			else if (str[i + 1] == '%')
 			{
-				;
+				write(STDOUT_FILENO, "%", 1);
+				sum++;
+				i++;
 			}
-			*/
 		}
 	}
 	va_end(args);
