@@ -6,10 +6,9 @@
 /*   By: juli <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 16:20:22 by juli              #+#    #+#             */
-/*   Updated: 2023/11/15 19:30:31 by juli             ###   ########.fr       */
+/*   Updated: 2023/11/16 19:05:56 by juli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 /* Prints the address of a pointer to terminal in hexadecimal.
  * Returns the length of the printed string.
@@ -19,27 +18,28 @@
 #include <stdint.h>
 #include "libft/libft.h"
 #include "libftprintf.h"
-#define HEX_BASE (16)
+#define HEXA_BASE (16)
+#define ADDR_MAX_LEN (20)
 
 int	ft_printf_p(void *addr)
 {
 	int			i;
 	intptr_t	addr_int;
-	char		hexstr[19];
+	char		s[ADDR_MAX_LEN];
 	char const	*hexchars = "0123456789abcdef";
 
 	addr_int = (intptr_t)addr;
 	i = 0;
-	while (addr_int / HEX_BASE)
+	while (addr_int / HEXA_BASE)
 	{
-		hexstr[i++] = hexchars[addr_int % HEX_BASE];
-		addr_int /= HEX_BASE;
+		s[i++] = hexchars[addr_int % HEXA_BASE];
+		addr_int /= HEXA_BASE;
 	}
-	hexstr[i++] = hexchars[addr_int];
-	hexstr[i++] = 'x';
-	hexstr[i++] = '0';
-	hexstr[i] = '\0';
-	str_rev(hexstr);
-	write(STDOUT_FILENO, hexstr, ft_strlen(hexstr));
-	return (ft_strlen(hexstr));
+	s[i++] = hexchars[addr_int];
+	s[i++] = 'x';
+	s[i++] = '0';
+	s[i] = '\0';
+	str_rev(s);
+	write(STDOUT_FILENO, s, ft_strlen(s));
+	return (ft_strlen(s));
 }

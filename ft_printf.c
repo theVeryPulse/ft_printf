@@ -1,12 +1,12 @@
-/* ************************************************************************* */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Philip Li <LJHR.UK@outlook.com>            +#+  +:+       +#+        */
+/*   By: juli <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 15:19:09 by Philip Li         #+#    #+#             */
-/*   Updated: 2023/11/15 19:50:10 by juli             ###   ########.fr       */
+/*   Created: 2023/11/16 19:06:56 by juli              #+#    #+#             */
+/*   Updated: 2023/11/16 19:12:55 by juli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,12 @@
 	• %x Prints a number in hexadecimal (base 16) lowercase format.
 	• %X Prints a number in hexadecimal (base 16) uppercase format.
 	• %% Prints a percent sign.
-	
-	WD
-	└─ ft_printf_c.c
-	└─ ft_printf_s.c
-	└─ ft_printf_p.c
-	└─ ft_printf_d.c
-	└─ ft_printf_i.c
-	└─ ft_printf_u.c
-	└─ ft_printf_x.c
-	└─ ft_printf_X.c
-	└─ ft_printf_percentsign.c
-	└─ libft/
 */
 
 #include "libft/libft.h"
 #include "libftprintf.h"
 #include <stddef.h>
-#include <stdarg.h> /* va_arg */
+#include <stdarg.h>
 
 int	ft_printf(const char *str, ...)
 {
@@ -51,27 +39,23 @@ int	ft_printf(const char *str, ...)
 	{
 		if (str[i] != '%' && str[i])
 			sum += ft_printf_c(str[i++]);
-		else // cspdiuxX%
+		else
 		{
 			i++;
+			// sum += ft_printf_all(args, str[i]);
+			// replace this block with one function
 			if (str[i] == 'c')
 				sum += ft_printf_c(va_arg(args, int));
 			else if (str[i] == 's')
 				sum += ft_printf_s(va_arg(args, char *));
 			else if (str[i] == 'p')
 				sum += ft_printf_p(va_arg(args, void *));
-			else if (str[i] == 'd')
+			else if (str[i] == 'd' || str[i] == 'i')
 				sum += ft_printf_d(va_arg(args, int));
-			/*
-			else if (str[i] == 'i')
-				;
 			else if (str[i] == 'u')
-				;
-			else if (str[i] == 'x')
-				;
-			else if (str[i] == 'X')
-				;
-			*/
+				sum += ft_printf_u(va_arg(args, unsigned int));
+			else if (str[i] == 'x' || str[i] == 'X')
+				sum += ft_printf_x(va_arg(args, int), str[i]);
 			else if (str[i] == '%')
 				sum += ft_printf_c('%');
 			else

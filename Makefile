@@ -12,7 +12,10 @@ CFILES := \
 	ft_printf_s.c \
 	ft_printf_p.c \
 	ft_printf_d.c \
-	str_rev.c
+	ft_printf_u.c \
+	ft_printf_x.c \
+	str_rev.c \
+	ft_abs.c
 OFILES := $(CFILES:.c=.o)
 
 # Default target
@@ -28,7 +31,7 @@ $(LIBFT):
 
 # Build object files of all required source codes
 $(OFILES): $(CFILES)
-	$(CC) -c $^  
+	$(CC) $(CFLAGS) -c $^  
 
 clean:
 	$(MAKE) -C libft clean
