@@ -6,7 +6,7 @@
 /*   By: juli <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 19:06:56 by juli              #+#    #+#             */
-/*   Updated: 2023/11/16 19:12:55 by juli             ###   ########.fr       */
+/*   Updated: 2023/11/16 21:56:18 by juli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 
 int	ft_printf(const char *str, ...)
 {
-	size_t	i;
-	size_t	sum;
+	int		i;
+	int		sum;
 	va_list	args;
 
 	va_start(args, str);
@@ -38,30 +38,14 @@ int	ft_printf(const char *str, ...)
 	while (str[i])
 	{
 		if (str[i] != '%' && str[i])
-			sum += ft_printf_c(str[i++]);
+		{
+			sum += ft_printf_c(str[i]);
+		}
 		else
 		{
-			i++;
-			// sum += ft_printf_all(args, str[i]);
-			// replace this block with one function
-			if (str[i] == 'c')
-				sum += ft_printf_c(va_arg(args, int));
-			else if (str[i] == 's')
-				sum += ft_printf_s(va_arg(args, char *));
-			else if (str[i] == 'p')
-				sum += ft_printf_p(va_arg(args, void *));
-			else if (str[i] == 'd' || str[i] == 'i')
-				sum += ft_printf_d(va_arg(args, int));
-			else if (str[i] == 'u')
-				sum += ft_printf_u(va_arg(args, unsigned int));
-			else if (str[i] == 'x' || str[i] == 'X')
-				sum += ft_printf_x(va_arg(args, int), str[i]);
-			else if (str[i] == '%')
-				sum += ft_printf_c('%');
-			else
-				return (-1);
-			i++;
+			sum += ft_printf_all(args, str[++i]);
 		}
+		i++;
 	}
 	va_end(args);
 	return (sum);

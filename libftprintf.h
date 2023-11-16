@@ -6,15 +6,18 @@
 /*   By: Philip Li <LJHR.UK@outlook.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 19:17:08 by Philip Li         #+#    #+#             */
-/*   Updated: 2023/11/16 18:44:31 by juli             ###   ########.fr       */
+/*   Updated: 2023/11/16 21:38:19 by juli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFTPRINTF_H
 # define LIBFTPRINTF_H
 # include "libft/libft.h"
+# include <stdarg.h>
 
 int		ft_printf(const char *str, ...);
+
+int		ft_printf_all(va_list args, int str_i);
 
 int		ft_printf_c(char c);
 
