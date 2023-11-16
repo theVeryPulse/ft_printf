@@ -35,8 +35,7 @@
 
 #include "libft/libft.h"
 #include "libftprintf.h"
-#include <stdlib.h>
-#include <unistd.h>
+#include <stddef.h>
 #include <stdarg.h> /* va_arg */
 
 int	ft_printf(const char *str, ...)
@@ -51,74 +50,35 @@ int	ft_printf(const char *str, ...)
 	while (str[i])
 	{
 		if (str[i] != '%' && str[i])
-		{
-			sum += ft_printf_c(str[i]);
-			i++;
-		}
+			sum += ft_printf_c(str[i++]);
 		else // cspdiuxX%
 		{
-			/* ft_printf_c */
-			if (str[i + 1] == 'c')
-			{
+			i++;
+			if (str[i] == 'c')
 				sum += ft_printf_c(va_arg(args, int));
-				i += 2;
-			}
-			/* ft_printf_s */
-			else if (str[i + 1] == 's')
-			{
+			else if (str[i] == 's')
 				sum += ft_printf_s(va_arg(args, char *));
-				i += 2;
-			}
-			/* ft_printf_p */
-			else if (str[i + 1] == 'p')
-			{
+			else if (str[i] == 'p')
 				sum += ft_printf_p(va_arg(args, void *));
-				i += 2;
-			}
-			/* ft_printf_d */
-			else if (str[i + 1] == 'd')
-			{
+			else if (str[i] == 'd')
 				sum += ft_printf_d(va_arg(args, int));
-				i += 2;
-			}
 			/*
-			else if (str[i + 1] == 'i')
-			{
+			else if (str[i] == 'i')
 				;
-			}
-			else if (str[i + 1] == 'u')
-			{
+			else if (str[i] == 'u')
 				;
-			}
-			else if (str[i + 1] == 'x')
-			{
+			else if (str[i] == 'x')
 				;
-			}
-			else if (str[i + 1] == 'X')
-			{
+			else if (str[i] == 'X')
 				;
-			}
 			*/
-			else if (str[i + 1] == '%')
-			{
-				write(STDOUT_FILENO, "%", 1);
-				sum++;
-				i++;
-			}
+			else if (str[i] == '%')
+				sum += ft_printf_c('%');
+			else
+				return (-1);
+			i++;
 		}
 	}
 	va_end(args);
 	return (sum);
 }
-
-/*
-#include <stdio.h>
-#include <string.h>
-
-int main(void)
-{
-	int c_len = printf("abcd%c %s", 'A', "string");
-	int ft_len = ft_printf("abcd%c %s", 'A', "string");
-	write(STDOUT_FILENO, "\n", 1);
-	printf("\tTotal length should be (%d), is now (%d)\n", c_len, ft_len);
-}*/
