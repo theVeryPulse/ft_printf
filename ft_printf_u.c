@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_u.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juli <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: Philip Li <LJHR.UK@outlook.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 16:40:17 by juli              #+#    #+#             */
-/*   Updated: 2023/11/16 19:06:16 by juli             ###   ########.fr       */
+/*   Updated: 2023/11/17 17:29:49 by Philip Li        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* Prints an unsigned integer to terminal, return string length */
+/* Prints an unsigned integer to terminal, return string length.
+ */
 
 #include <unistd.h>
 #include "libftprintf.h"
@@ -21,7 +22,6 @@
 int	ft_printf_u(unsigned int n)
 {
 	int			i;
-	int			len;
 	char		s[DEC_MAX_LEN];
 	char const	*dec_chars = "0123456789";
 
@@ -34,7 +34,5 @@ int	ft_printf_u(unsigned int n)
 		i--;
 	}
 	s[i] = dec_chars[n];
-	len = DEC_MAX_LEN - 1 - i;
-	write(STDOUT_FILENO, s, len);
-	return (len);
+	return (ft_printf_s(&s[i]));
 }

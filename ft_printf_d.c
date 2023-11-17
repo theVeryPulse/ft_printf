@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_d.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juli <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: Philip Li <LJHR.UK@outlook.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 19:15:25 by juli              #+#    #+#             */
-/*   Updated: 2023/11/16 18:36:30 by juli             ###   ########.fr       */
+/*   Updated: 2023/11/17 17:28:50 by Philip Li        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* Prints an integer to terminal, return string length */
+/* Prints an integer to terminal, return string length.
+ */
 
 #include <unistd.h>
 #include <stddef.h>
@@ -23,7 +24,6 @@
 int	ft_printf_d(int n)
 {
 	int			i;
-	int			len;
 	bool		is_negative;
 	char		s[DEC_MAX_LEN];
 	char const	*dec_chars = "0123456789";
@@ -40,7 +40,5 @@ int	ft_printf_d(int n)
 	s[i] = dec_chars[ft_abs(n)];
 	if (is_negative)
 		s[--i] = '-';
-	len = DEC_MAX_LEN - 1 - i;
-	write(STDOUT_FILENO, s, len);
-	return (len);
+	return (ft_printf_s(&s[i]));
 }

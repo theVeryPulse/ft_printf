@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_x.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juli <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: Philip Li <LJHR.UK@outlook.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 18:05:56 by juli              #+#    #+#             */
-/*   Updated: 2023/11/16 19:06:29 by juli             ###   ########.fr       */
+/*   Updated: 2023/11/17 17:30:02 by Philip Li        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,9 @@
 
 static void	str_upper(char *s);
 
-int	ft_printf_x(int n, int x)
+int	ft_printf_x(unsigned int n, int letter_case)
 {
 	int			i;
-	int			len;
 	char		s[HEXA_MAX_LEN];
 	char const	*hexchars = "0123456789abcdef";
 
@@ -43,11 +42,9 @@ int	ft_printf_x(int n, int x)
 		i--;
 	}
 	s[i] = hexchars[ft_abs(n)];
-	if (x == 'X')
+	if (letter_case == 'X')
 		str_upper(&s[i]);
-	len = HEXA_MAX_LEN - 1 - i;
-	write(STDOUT_FILENO, s, len);
-	return (len);
+	return (ft_printf_s(&s[i]));
 }
 
 /* Converts all lower case letters to upper case in a string */

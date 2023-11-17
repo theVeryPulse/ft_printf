@@ -6,7 +6,7 @@
 /*   By: juli <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 17:40:23 by juli              #+#    #+#             */
-/*   Updated: 2023/11/03 23:37:25 by juli             ###   ########.fr       */
+/*   Updated: 2023/11/17 16:01:42 by juli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,45 +14,41 @@
 
 #include <stdlib.h>
 #include "libft.h"
+#include <stdbool.h>
 
-static size_t	*re_itoa(long num, char *ary)
-{
-	static size_t	j = 0;
+#define INT_MAX_LEN (40)
+#define DEC_BASE (10)
 
-	if (ary[j] == '-')
-		j++;
-	if (num / 10 == 0)
-		ary[j++] = num + '0';
-	else
-	{
-		re_itoa(num / 10, ary);
-		ary[j++] = num % 10 + '0';
-	}
-	return (&j);
-}
+int	ft_abs(int n);
 
 char	*ft_itoa(int n)
 {
-	int		i;
-	char	ary[40];
-	char	*out;
-	long	num;
-	size_t	*j;
+	int			i;
+	bool		is_negative;
+	char		s[INT_MAX_LEN];
+	char const	*dec_chars = "0123456789";
 
-	i = 0;
-	while (i < 40)
-		ary[i++] = '\0';
-	num = n;
-	if (num < 0)
+	i = INT_MAX_LEN - 1;
+	s[i--] = '\0';
+	is_negative = n < 0;
+	while (n >= DEC_BASE || n <= -(DEC_BASE))
 	{
-		num = -num;
-		ary[0] = '-';
+		s[i] = dec_chars[ft_abs(n % DEC_BASE)];
+		n /= DEC_BASE;
+		i--;
 	}
-	j = re_itoa(num, ary);
-	*j = 0;
-	out = (char *)malloc((ft_strlen(ary) + 1) * sizeof(char));
-	ft_strlcpy(out, ary, (ft_strlen(ary) + 1));
-	return (out);
+	s[i] = dec_chars[ft_abs(n)];
+	if (is_negative)
+		s[--i] = '-';
+	return (ft_strdup(&s[i]));
+}
+
+int	ft_abs(int n)
+{
+	if (n > 0)
+		return (n);
+	else
+		return (-n);
 }
 /*
 #include <stdio.h>

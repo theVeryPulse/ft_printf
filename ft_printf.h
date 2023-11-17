@@ -6,12 +6,12 @@
 /*   By: Philip Li <LJHR.UK@outlook.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 19:17:08 by Philip Li         #+#    #+#             */
-/*   Updated: 2023/11/16 22:06:02 by juli             ###   ########.fr       */
+/*   Updated: 2023/11/17 17:38:00 by Philip Li        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPRINTF_H
-# define LIBFTPRINTF_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 # include "libft/libft.h"
 # include <stdarg.h>
 
