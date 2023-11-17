@@ -13,6 +13,7 @@
 /* Interprets the specifier passed into ft_printf.
  * Calls the corresponding function to print the argument.
  * Returns the length of the printed string.
+ * Returns -1 if the specifier is not valid.
 */
 
 #include "libftprintf.h"

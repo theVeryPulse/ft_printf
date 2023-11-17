@@ -16,30 +16,32 @@
 
 #include <unistd.h>
 #include <stdint.h>
-#include "libft/libft.h"
 #include "libftprintf.h"
+
 #define HEXA_BASE (16)
 #define ADDR_MAX_LEN (20)
 
 int	ft_printf_p(void *addr)
 {
 	int			i;
+	int			len;
 	intptr_t	addr_int;
 	char		s[ADDR_MAX_LEN];
 	char const	*hexchars = "0123456789abcdef";
 
 	addr_int = (intptr_t)addr;
-	i = 0;
-	while (addr_int / HEXA_BASE)
+	i = ADDR_MAX_LEN - 1;
+	s[i--] = '\0';
+	while (addr_int >= HEXA_BASE)
 	{
-		s[i++] = hexchars[addr_int % HEXA_BASE];
+		s[i] = hexchars[addr_int % HEXA_BASE];
 		addr_int /= HEXA_BASE;
+		i--;
 	}
-	s[i++] = hexchars[addr_int];
-	s[i++] = 'x';
-	s[i++] = '0';
-	s[i] = '\0';
-	str_rev(s);
-	write(STDOUT_FILENO, s, ft_strlen(s));
-	return (ft_strlen(s));
+	s[i--] = hexchars[addr_int];
+	s[i--] = 'x';
+	s[i] = '0';
+	len = ADDR_MAX_LEN - 1 - i;
+	write(STDOUT_FILENO, s, len);
+	return (len);
 }

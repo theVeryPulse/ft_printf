@@ -31,8 +31,6 @@ int		ft_printf_u(unsigned int n);
 
 int		ft_printf_x(int n, int x);
 
-void	str_rev(char *s);
-
 int		ft_abs(int n);
 
 #endif

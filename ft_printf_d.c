@@ -10,13 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/* Prints a integer to terminal, return string length */
+/* Prints an integer to terminal, return string length */
 
 #include <unistd.h>
 #include <stddef.h>
 #include <stdbool.h>
 #include "libftprintf.h"
-#include "libft/libft.h"
 
 #define DEC_BASE (10)
 #define DEC_MAX_LEN (16)
@@ -29,22 +28,19 @@ int	ft_printf_d(int n)
 	char		s[DEC_MAX_LEN];
 	char const	*dec_chars = "0123456789";
 
-	is_negative = false;
-	if (n < 0)
-		is_negative = true;
-	i = 0;
-	while (n / DEC_BASE)
+	is_negative = (n < 0);
+	i = DEC_MAX_LEN - 1;
+	s[i--] = '\0';
+	while (n >= DEC_BASE || n <= -(DEC_BASE))
 	{
 		s[i] = dec_chars[ft_abs(n % DEC_BASE)];
 		n = ft_abs(n / DEC_BASE);
-		i++;
+		i--;
 	}
-	s[i++] = dec_chars[n];
+	s[i] = dec_chars[ft_abs(n)];
 	if (is_negative)
-		s[i++] = '-';
-	s[i] = '\0';
-	str_rev(s);
-	len = (int)ft_strlen(s);
+		s[--i] = '-';
+	len = DEC_MAX_LEN - 1 - i;
 	write(STDOUT_FILENO, s, len);
 	return (len);
 }

@@ -20,7 +20,6 @@
  */
 
 #include <unistd.h>
-#include "libft/libft.h"
 #include "libftprintf.h"
 
 #define HEXA_MAX_LEN (9)
@@ -35,19 +34,18 @@ int	ft_printf_x(int n, int x)
 	char		s[HEXA_MAX_LEN];
 	char const	*hexchars = "0123456789abcdef";
 
-	i = 0;
-	while (n / HEXA_BASE)
+	i = HEXA_MAX_LEN - 1;
+	s[i--] = '\0';
+	while (n >= HEXA_BASE)
 	{
 		s[i] = hexchars[ft_abs(n % HEXA_BASE)];
 		n = ft_abs(n / HEXA_BASE);
-		i++;
+		i--;
 	}
-	s[i++] = hexchars[ft_abs(n)];
-	s[i] = '\0';
-	str_rev(s);
+	s[i] = hexchars[ft_abs(n)];
 	if (x == 'X')
-		str_upper(s);
-	len = (int)ft_strlen(s);
+		str_upper(&s[i]);
+	len = HEXA_MAX_LEN - 1 - i;
 	write(STDOUT_FILENO, s, len);
 	return (len);
 }

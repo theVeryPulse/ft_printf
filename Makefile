@@ -15,7 +15,6 @@ CFILES := \
 	ft_printf_d.c \
 	ft_printf_u.c \
 	ft_printf_x.c \
-	str_rev.c \
 	ft_abs.c
 OFILES := $(CFILES:.c=.o)
 
