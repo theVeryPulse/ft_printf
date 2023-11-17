@@ -14,14 +14,13 @@
 
 #include <unistd.h>
 #include <limits.h>
+#include "libftprintf.h"
 
 int	ft_printf_s(char *s)
 {
 	int	len;
 
-	len = 0;
-	while (s[len] && len <= INT_MAX)
-		len++;
+	len = (int)ft_strlen(s);
 	write(STDOUT_FILENO, s, len);
 	return (len);
 }

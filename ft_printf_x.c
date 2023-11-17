@@ -58,8 +58,7 @@ static void	str_upper(char *s)
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] >= 'a' && s[i] <= 'z')
-			s[i] -= 32;
+		s[i] = ft_toupper(s[i]);
 		i++;
 	}
 }
