@@ -29,10 +29,6 @@ $(NAME): $(LIBFT) $(OFILES)
 $(LIBFT):
 	$(MAKE) -C libft
 
-# Build object files of all required source codes
-$(OFILES): $(CFILES)
-	$(CC) $(CFLAGS) -c $^  
-
 clean:
 	$(MAKE) -C libft clean
 	rm -f $(OFILES) $(CFILES:.c=.o)
